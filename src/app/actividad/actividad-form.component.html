@@ -1,0 +1,61 @@
+<app-menu></app-menu>
+<div class="container">
+  <form [formGroup]="actividadForm" (ngSubmit)="accion()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="nombre" formControlName="nombre" required>
+              <mat-error *ngIf="nombre.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Duración</mat-label>
+              <input matInput placeholder="duración" formControlName="duracion" required>
+              <mat-error *ngIf="duracion.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+            &nbsp;
+          </span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span>
+            <mat-form-field appearance="outline">
+              <mat-label>Inicio</mat-label>
+              <input matInput placeholder="dd/MM/yyyy HH:mm" formControlName="inicio" required>
+              <mat-error *ngIf="inicio.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Fin</mat-label>
+              <input matInput placeholder="dd/MM/yyyy HH:mm" formControlName="fin" required>
+              <mat-error *ngIf="fin.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+            &nbsp;
+          </span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="gappx">
+          <span>
+            <mat-form-field>
+              <mat-label>Aforo Máximo</mat-label>
+              <input matInput formControlName="aforoMaximo" required>
+              <mat-error *ngIf="aforoMaximo.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+            &nbsp;
+            <mat-checkbox formControlName="lleno">Lleno</mat-checkbox>
+            &nbsp;
+          </span>
+
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="start">
+        <button mat-raised-button color="primary" type="submit" [disabled]="actividadForm.invalid">Guardar</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </form>
+</div>

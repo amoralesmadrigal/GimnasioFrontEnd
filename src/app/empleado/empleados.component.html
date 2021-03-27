@@ -1,0 +1,52 @@
+<app-menu></app-menu>
+<div class="container">
+  <h1>{{titulo}}</h1>
+  <mat-form-field appearance="outline">
+    <input matInput placeholder="buscar empleado" (keyup)="buscarEmpleado($event.target.value)">
+  </mat-form-field>
+  <div class="alert alert-info" *ngIf="empleados?.length == 0">
+    No hay empleados en el sistema.
+  </div>
+
+  <table class="table table-hover table-striped" *ngIf="empleados?.length > 0">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Primer Apellido</th>
+        <th>Segundo Apellido</th>
+        <th>Documentación</th>
+        <th>Telefono</th>
+        <th>Email</th>
+        <th>F. Nacimiento</th>
+        <th>Status</th>
+        <th>T. Empleado</th>
+        <th *ngIf="isAdministrador">Editar</th>
+        <th *ngIf="isAdministrador">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let empleado of empleados">
+        <td>{{empleado.id}}</td>
+        <td>{{empleado.nombre}}</td>
+        <td>{{empleado.primerApellido}}</td>
+        <td>{{empleado.segundoApellido}}</td>
+        <td>{{empleado.documentacion}}</td>
+        <td>{{empleado.numeroTelefono}}</td>
+        <td>{{empleado.email}}</td>
+        <td>{{empleado.fechaNacimiento}}</td>
+        <td>{{empleado.status}}</td>
+        <td>{{empleado.tipoEmpleado}}</td>
+        <td *ngIf="isAdministrador">
+          <button mat-raised-button color="accent" [routerLink]="['/empleado', empleado.id]">Editar</button>
+        </td>
+        <td *ngIf="isAdministrador">
+          <button mat-raised-button color="warn" (click)="eliminar(empleado.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="isAdministrador">
+    <button mat-raised-button color="primary" [routerLink]="['/register']">Nuevo Empleado</button>
+  </div>
+</div>

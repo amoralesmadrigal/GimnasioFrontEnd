@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+<div class="container">
+  <h1>{{titulo}}</h1>
+  <div class="alert alert-info" *ngIf="actividades?.length == 0">
+    No hay actividades en el sistema.
+  </div>
+
+  <table class="table table-hover table-striped" *ngIf="actividades?.length > 0">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Actividad</th>
+        <th>Lleno</th>
+        <th>Aforo Máximo</th>
+        <th>Empieza</th>
+        <th>Termina</th>
+        <th>Duración</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let actividad of actividades">
+        <td>{{actividad.id}}</td>
+        <td>{{actividad.nombre}}</td>
+        <td *ngIf="actividad.lleno">Si</td>
+        <td *ngIf="!actividad.lleno">No</td>
+        <td>{{actividad.aforoMaximo}}</td>
+        <td>{{actividad.inicio}}</td>
+        <td>{{actividad.fin}}</td>
+        <td>{{actividad.duracion}}</td>
+        <td *ngIf="isAdministrador">
+          <button mat-raised-button color="accent" [routerLink]="['/actividad/form', actividad.id]">Editar</button>
+        </td>
+        <td *ngIf="isAdministrador">
+          <button mat-raised-button color="warn" (click)="eliminar(actividad.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="isAdministrador">
+    <button mat-raised-button color="primary" [routerLink]="['/actividad/form']">Nueva Actividad</button>
+  </div>
+</div>

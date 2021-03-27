@@ -1,0 +1,120 @@
+<app-menu></app-menu>
+<div class="container">
+  <form [formGroup]="subscriptorForm" (ngSubmit)="accion()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{title}} :: Identidad</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="nombre" formControlName="nombre" required>
+              <mat-error *ngIf="nombre.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Primer Apellido</mat-label>
+              <input matInput placeholder="Primer Apellido" formControlName="primerApellido" required>
+              <mat-error *ngIf="primerApellido.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Segundo Apellido</mat-label>
+              <input matInput placeholder="Segundo Apellido" formControlName="segundoApellido">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Documentacion</mat-label>
+              <input matInput placeholder="documentacion" formControlName="documentacion" required>
+              <mat-error *ngIf="documentacion.errors?.required">Campo obligatorio</mat-error>
+            </mat-form-field>
+          </span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span>
+            <mat-form-field appearance="outline">
+              <mat-label>Nº Telefono</mat-label>
+              <input matInput placeholder="Nº Telefono" formControlName="numeroTelefono">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha Nacimiento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Tipo Inscripcion</mat-label>
+              <mat-select formControlName="tipoInscripcion">
+                <mat-option *ngFor="let tipo of tiposInscripcion" [value]="tipo">
+                  {{tipo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    &nbsp;
+    <!-- Direccion -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Dirección</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="center center" formGroupName="direccion">
+          <span>
+            <mat-form-field appearance="outline">
+              <mat-label>Ciudad</mat-label>
+              <input matInput placeholder="Ciudad" formControlName="ciudad">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Calle</mat-label>
+              <input matInput placeholder="Calle" formControlName="calle">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Numero</mat-label>
+              <input matInput placeholder="Numero" formControlName="numero">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="outline">
+              <mat-label>Piso</mat-label>
+              <input matInput placeholder="Piso" formControlName="piso">
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <span>
+                <mat-form-field appearance="outline">
+                  <mat-label>Puerta</mat-label>
+                  <input matInput placeholder="Puerta" formControlName="puerta">
+                </mat-form-field>
+                &nbsp;
+                <mat-form-field appearance="outline">
+                  <mat-label>Codigo Postal</mat-label>
+                  <input matInput placeholder="Codigo Postal" formControlName="codigoPostal">
+                </mat-form-field>
+              </span>
+            </div>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br>
+    <button mat-raised-button color="primary" type="submit" [disabled]="subscriptorForm.invalid">Guardar</button>
+
+  </form>
+</div>
