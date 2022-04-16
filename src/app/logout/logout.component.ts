@@ -22,6 +22,8 @@ export class LogoutComponent implements OnInit {
     //console.log(this.app.isSubscriptor);
     //this.app.isSubscriptor = false;
     //this.app.isEmpleado = false;
-    this.router.navigate(['/login']);
+    //this.menu.reset();
+    //this.router.navigate(['/login']);
+    document.location.href = '/';
   }
 }

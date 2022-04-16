@@ -37,6 +37,9 @@ import { NgxMomentDateModule } from '@angular-material-components/moment-adapter
 import { AsignarActividadComponent } from './mis-actividades/asignar-actividad.component';
 import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
+import { PersonaComponent } from './persona/persona.component';
+import { PersonasComponent } from './persona/personas.component';
+import { MisDatosComponent } from './mis-datos.component';
 
 const MY_FORMATS = {
   parse: {
@@ -66,7 +69,10 @@ const MY_FORMATS = {
     EmpleadosComponent,
     AsignarActividadComponent,
     MenuComponent,
-    IndexComponent
+    IndexComponent,
+    PersonaComponent,
+    PersonasComponent,
+    MisDatosComponent
   ],
   imports: [
     BrowserModule,

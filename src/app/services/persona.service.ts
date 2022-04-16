@@ -28,7 +28,23 @@ export class PersonaService {
   }
 
   public getRol(id: number): Observable<number>{
-    return this.http.get<number>(`${this.baseEndpoint}/${id}`);
+    return this.http.get<number>(`${this.baseEndpoint}/rol/${id}`);
+  }
+
+  public listar(): Observable<Persona[]>{
+    return this.http.get<Persona[]>(this.baseEndpoint);
+  }
+
+  public filtrar(nombre: string): Observable<Persona[]>{
+    return this.http.get<Persona[]>(`${this.baseEndpoint}/filtrar/${nombre}`);
+  }
+
+  public mostrar(id: number): Observable<Persona>{
+    return this.http.get<Persona>(`${this.baseEndpoint}/${id}`);
+  }
+
+  public updatePassword(id: number, persona: Persona): Observable<number>{
+    return this.http.put<number>(`${this.baseEndpoint}/update-password/${id}`, persona, {headers: this.cabeceras});
   }
 
   public logout(): void{

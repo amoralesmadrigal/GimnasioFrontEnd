@@ -62,31 +62,42 @@ export class EmpleadosComponent implements OnInit {
     }
   }
 
-  public eliminar(idEmpleado : number): void{
+  public eliminar(id : number): void{
+    if(this.isAdministrador){
+      Swal.fire({
+        title: 'Cuidado',
+        text: "¿Seguro que desea eliminar al empleado?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, hazlo!'
+      }).then((result) => {
 
-    Swal.fire({
-      title: 'Cuidado',
-      text: "¿Seguro que desea eliminar al empleado?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, hazlo!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.eliminarTodo(idEmpleado).subscribe(regreso => {
-          Swal.fire("Eliminar: ", `Empleado eliminado con exito`, 'success');
-          this.service.listar().subscribe(retorno => this.empleados = retorno);
-        }, err =>{
-          console.log(err);
-          if(err.status){
-            this.error = err.error;
-            Swal.fire("Error: ", `Ha ocurrido el siguiente error ${err.status}, consulte con el administrador `, 'error');
-            this.router.navigate(["/empleados"]);
+        if (result.isConfirmed) {
+          let empleadoId = this.personService.obtenerEmpleadoId();
+
+          if(empleadoId === id){
+            Swal.fire("Información: ", `No te puedes eliminar a ti mismo`, 'info');
+            this.router.navigate(['/empleados']);
+          }else{
+            this.service.eliminarTodo(id).subscribe(regreso => {
+              Swal.fire("Eliminar: ", `Empleado eliminado con exito`, 'success');
+              this.service.listar().subscribe(retorno => this.empleados = retorno);
+            }, err =>{
+              console.log(err);
+              if(err.status){
+                this.error = err.error;
+                Swal.fire("Error: ", `Ha ocurrido el siguiente error ${err.status}, consulte con el administrador `, 'error');
+                this.router.navigate(["/empleados"]);
+              }
+            });
           }
-        });
-      }
-    });
+        }
+      });
+    }else{
+      Swal.fire("Información: ", `Usted no es un administrador; acceso denegado`, 'error');
+      this.router.navigate(['/indice']);
+    }
   }
-
 }

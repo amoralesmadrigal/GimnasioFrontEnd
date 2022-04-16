@@ -44,7 +44,8 @@
         <tr *ngFor="let actividad of actividades">
           <td>{{actividad.id}}</td>
           <td>{{actividad.nombre}}</td>
-          <td>{{actividad.lleno}}</td>
+          <td *ngIf="actividad.lleno">Si</td>
+          <td *ngIf="!actividad.lleno">No</td>
           <td>{{actividad.aforoMaximo}}</td>
           <td>{{actividad.inicio}}</td>
           <td>{{actividad.fin}}</td>

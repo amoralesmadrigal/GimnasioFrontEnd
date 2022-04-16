@@ -15,8 +15,8 @@
         <th>Empieza</th>
         <th>Termina</th>
         <th>Duración</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
+        <th *ngIf="isAdministrador">Editar</th>
+        <th *ngIf="isAdministrador">Eliminar</th>
       </tr>
     </thead>
     <tbody>
@@ -30,10 +30,16 @@
         <td>{{actividad.fin}}</td>
         <td>{{actividad.duracion}}</td>
         <td *ngIf="isAdministrador">
-          <button mat-raised-button color="accent" [routerLink]="['/actividad/form', actividad.id]">Editar</button>
+          <button mat-raised-button color="accent" [routerLink]="['/actividad/form', actividad.id]">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
         </td>
         <td *ngIf="isAdministrador">
-          <button mat-raised-button color="warn" (click)="eliminar(actividad.id)">Eliminar</button>
+          <button mat-raised-button color="warn" (click)="eliminar(actividad.id)">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
         </td>
       </tr>
     </tbody>

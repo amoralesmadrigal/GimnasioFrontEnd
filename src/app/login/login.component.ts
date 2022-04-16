@@ -23,6 +23,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
    this.initialize();
+
+   if(this.service.isPersonaLogued()){
+    this.router.navigate(['/inicio']);
+   }else{
+    this.router.navigate(['/login']);
+   }
+
   }
 
   initialize() {
@@ -41,8 +48,6 @@ export class LoginComponent implements OnInit {
   }
 
   public login(){
-
-
     this.service.login(this.loginForm.value).subscribe(regreso => {
       this.personaRegreso = regreso;
       this.service.logout();
@@ -58,7 +63,7 @@ export class LoginComponent implements OnInit {
         this.service.guardarEnSession(this.service.EMPLEADO_ID, this.id);
         this.service.guardarEnSession(this.service.PERSONA_ID, this.personaRegreso.id);
         //this.app.isEmpleado = true;
-        this.router.navigate(['/empleados']);
+        this.router.navigate(['/inicio']);
       }
 
 

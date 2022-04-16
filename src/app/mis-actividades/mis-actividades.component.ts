@@ -128,10 +128,10 @@ export class MisActividadesComponent implements OnInit {
 
           this.tabIndex = 0;
         }, err =>{
-          if(err.status === 403 || err.status === 400 || err.status === 503){
+          console.log(err);
+          if(err.status){
             this.error = err.error;
-            console.log(this.error);
-            Swal.fire("Error: ", `Consulte al administrador`, 'error');
+            Swal.fire("Error: ", `Consulte al administrador: ${this.error}`, 'error');
           }
         });
       }

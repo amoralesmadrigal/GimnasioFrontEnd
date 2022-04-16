@@ -37,10 +37,16 @@
         <td>{{subscriptor.status}}</td>
         <td>{{subscriptor.tipoInscripcion}}</td>
         <td *ngIf="isAdministrador">
-          <button mat-raised-button color="accent" [routerLink]="['/subscriptor', subscriptor.id]">Editar</button>
+          <button mat-raised-button color="accent" [routerLink]="['/subscriptor', subscriptor.id]">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
         </td>
         <td *ngIf="isAdministrador">
-          <button mat-raised-button color="warn" (click)="eliminar(subscriptor.id)">Eliminar</button>
+          <button mat-raised-button color="warn" (click)="eliminar(subscriptor.id)">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
         </td>
       </tr>
     </tbody>

@@ -38,10 +38,16 @@
         <td>{{empleado.status}}</td>
         <td>{{empleado.tipoEmpleado}}</td>
         <td *ngIf="isAdministrador">
-          <button mat-raised-button color="accent" [routerLink]="['/empleado', empleado.id]">Editar</button>
+          <button mat-raised-button color="accent" [routerLink]="['/empleado', empleado.id]">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
         </td>
         <td *ngIf="isAdministrador">
-          <button mat-raised-button color="warn" (click)="eliminar(empleado.id)">Eliminar</button>
+          <button mat-raised-button color="warn" (click)="eliminar(empleado.id)">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
         </td>
       </tr>
     </tbody>

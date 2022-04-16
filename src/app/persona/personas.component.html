@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+
+<div class="container">
+  <h1>{{titulo}}</h1>
+  <mat-form-field appearance="outline">
+    <input matInput placeholder="buscar persona" (keyup)="buscarPersona($event.target.value)">
+  </mat-form-field>
+  <div class="alert alert-info" *ngIf="personas?.length == 0">
+    No hay personas en el sistema.
+  </div>
+
+  <table class="table table-hover table-striped" *ngIf="personas?.length > 0">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>usuario</th>
+        <th *ngIf="isAdministrador">Editar</th>
+        <th *ngIf="isAdministrador">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of personas">
+        <td>{{persona.id}}</td>
+        <td>{{persona.username}}</td>
+        <td *ngIf="isAdministrador">
+          <button mat-raised-button color="accent" [routerLink]="['/persona', persona.id, persona.username]">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </td>
+        <td *ngIf="isAdministrador">
+          <button *ngIf="persona.empleadoId?.id > 0" mat-raised-button color="warn" (click)="eliminar(persona.empleadoId?.id, 'empleado')">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+          <button *ngIf="persona.subscriptorId?.id > 0" mat-raised-button color="warn" (click)="eliminar(persona.subscriptorId?.id, 'subscriptor')">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

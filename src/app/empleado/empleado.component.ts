@@ -20,6 +20,7 @@ export class EmpleadoComponent implements OnInit {
   personaId: number;
   empleadoId: number;
   tipoEmpleado :  string[] = ['MONITOR', 'MANAGER', 'ADMINISTRADOR'];
+  isAdministrador?: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private service: EmpleadoService, private personaService: PersonaService,
               private router: Router, private route: ActivatedRoute) { }
@@ -40,6 +41,11 @@ export class EmpleadoComponent implements OnInit {
         this.empleadoId = +params.get('id');
         console.log('empleadoId'+ this.empleadoId);
         if(this.empleadoId > 0){
+
+          this.personaService.isAdministrador().subscribe(regreso =>{
+            this.isAdministrador = regreso;
+          });
+
           this.service.mostrar(this.empleadoId).subscribe(regreso =>{
             this.empleadoForm = this.formBuilder.group({
               nombre: [regreso.nombre, Validators.required],

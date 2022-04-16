@@ -25,6 +25,7 @@ export class SubscriptorComponent implements OnInit {
   personaId: number;
   title = "Nuevo Subscriptor";
   tiposInscripcion :  string[] = ['MENSUAL', 'TRIMENSTRAL' , 'SEMESTRAL' , 'ANUAL'];
+  isAdministrador?: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private service: SubscriptorService,
               private personService: PersonaService, private router: Router, private route: ActivatedRoute) { }
@@ -32,7 +33,7 @@ export class SubscriptorComponent implements OnInit {
   ngOnInit(): void {
     this.initiliaze();
 
-    if(!this.personService.isEmpleadoLogued()){
+    if(!this.personService.isSubsLogued()){
       this.router.navigate(["/login"]);
     }else{
 
@@ -44,6 +45,10 @@ export class SubscriptorComponent implements OnInit {
         this.subscriptorId = +params.get('id');
         console.log("subscriptorId->" + this.subscriptorId);
           if(this.subscriptorId > 0){
+            this.personService.isAdministrador().subscribe(regreso =>{
+              this.isAdministrador = regreso;
+            });
+
             this.service.mostrar(this.subscriptorId).subscribe(regreso => {
               this.title = "Editar Subscriptor";
 
@@ -66,6 +71,13 @@ export class SubscriptorComponent implements OnInit {
                   codigoPostal:[regreso.direccion.codigoPostal]
                 })
               });
+            }, err =>{
+              console.log(err);
+              if(err.status){
+                this.error = err.error;
+                Swal.fire("Error: ", `Ha ocurrido el siguiente error ${err.status}, consulte con el administrador `, 'error');
+                this.router.navigate(["/inicio"]);
+              }
             });
           }
 
